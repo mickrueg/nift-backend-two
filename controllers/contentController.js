@@ -137,9 +137,9 @@ router.get('/', async (req, res, next) => {
         })
         bcrypt.compare(req.body.password, userData[0].password, function(err, isValid){
             if(isValid){
-                res.json(true)
+                res.send(true)
             } else {
-                res.json(false)
+                res.send(false)
             }
         })
         
