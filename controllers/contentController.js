@@ -9,6 +9,7 @@ const NFT = require('../models/NFT')
 const User = require('../models/User')
 // Import password protection hashing
 const bcrypt = require('bcrypt')
+const { request } = require('express')
 
 // ***** ROUTES *****
 
@@ -128,6 +129,25 @@ router.delete('/:id', async (req, res, next) =>  {
         next(err)
     }
 })
+
+router.get('/', async (req, res, next) => {
+    try {
+        const userData = await User.find({
+            username: req.body.username
+        })
+        bcrypt.compare(req.body.password, userData[0].password, function(err, isValid){
+            if(isValid){
+                res.json(true)
+            } else {
+                res.json(false)
+            }
+        })
+        
+    } catch (err) {
+        next(err)
+    }
+})
+
 
 // Export routes
 module.exports = router
