@@ -83,7 +83,7 @@ router.get('/:id', async (req, res, next) => {
 router.get('/articles', async (req, res, next) => {
     try {
         const articles = await Article.find({
-            user: req.body
+            user: req.body.user
         })
         res.json(articles)
     } catch (err) {
