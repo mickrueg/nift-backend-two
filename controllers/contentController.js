@@ -10,6 +10,8 @@ const User = require('../models/User')
 // Import password protection hashing
 const bcrypt = require('bcrypt')
 const { request } = require('express')
+const { createUserToken } = require('../middleware/auth');
+
 
 // ***** ROUTES *****
 
@@ -130,23 +132,42 @@ router.delete('/:id', async (req, res, next) =>  {
     }
 })
 
-router.get('/', async (req, res, next) => {
-    try {
-        const userData = await User.find({
-            username: req.body.username
-        })
-        bcrypt.compare(req.body.password, userData[0].password, function(err, isValid){
-            if(isValid){
-                res.send(true)
-            } else {
-                res.send(false)
-            }
-        })
+
+// SIGN IN
+// POST /api/signin
+router.post('/signin', (req, res, next) => {
+	User.findOne({ username: req.body.username })
+		// Pass the user and the request to createUserToken
+		.then((user) => createUserToken(req, user))
+		// createUserToken will either throw an error that
+		// will be caught by our error handler or send back
+		// a token that we'll in turn send to the client.
+		.then((token) => res.json({ token }))
+		.catch(next);
+});
+
+// router.get('/:id', async (req, res, next) => {
+//     try {
+//         const userData = await User.findById({
+//             username: req.params.id,
+//             password: req.body.password
+//         })
+//         // console.log(userData)
+//         // bcrypt.compare(req.body.password, userData[0].password, function(err, isValid){
+//         //     if(isValid){
+//         //         res.send(true)
+//         //         console.log(true)
+//         //     } else {
+//         //         res.send(false)
+//         //         console.log(false)
+//         //     }
+//         // })
         
-    } catch (err) {
-        next(err)
-    }
-})
+//     } catch (err) {
+//         next(err)
+//     }
+// })
+
 
 
 // Export routes
