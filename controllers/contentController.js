@@ -113,7 +113,7 @@ router.delete('/:id', async (req, res, next) =>  {
     }
 })
 // Delete saved Article by id
-router.delete('/:id', async (req, res, next) =>  {
+router.delete('/article/:id', async (req, res, next) =>  {
     try {
         const deletedArticle = await Article.findByIdAndDelete(req.params.id)
         res.json(deletedArticle)
