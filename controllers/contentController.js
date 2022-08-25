@@ -67,6 +67,18 @@ router.get('/users', async (req, res, next) => {
     }
 })
 
+//GET Articles
+router.get('/articles', async (req, res, next) => {
+    try {
+        const articles = await Article.find({
+            user: req.body.user
+        })
+        res.json(articles)
+    } catch (err) {
+        next(err)
+    }
+})
+
 // Get user object by username
 router.get('/:id', async (req, res, next) => {
     try {
@@ -74,18 +86,6 @@ router.get('/:id', async (req, res, next) => {
             username: req.params.id
         })
         res.json(userData)
-    } catch (err) {
-        next(err)
-    }
-})
-
-// Get all user's saved Articles by passing in user id into req.body
-router.get('/articles', async (req, res, next) => {
-    try {
-        const articles = await Article.find({
-            user: req.body.user
-        })
-        res.json(articles)
     } catch (err) {
         next(err)
     }
