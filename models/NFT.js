@@ -4,7 +4,10 @@ const mongoose = require('../db/connection')
 // Schema(s)
 const NFTSchema = new mongoose.Schema({
     user: String,
-    NFT: String
+    name: String,
+    image: String,
+    desciption: String
+
 })
 
 // Instantiate the model and give it a name

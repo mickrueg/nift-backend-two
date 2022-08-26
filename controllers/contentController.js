@@ -47,7 +47,7 @@ router.post('/article', async (req, res, next) => {
     }
 })
 
-// Save new Article by passing in user and article link to req.body
+// Save new NFT by passing in user and article link to req.body
 router.post('/nft', async (req, res, next) => {
     try {
         const saveNFT = await NFT.create(req.body)
@@ -92,16 +92,17 @@ router.get('/:id', async (req, res, next) => {
 })
 
 // Get all user's saved NFTs by passing in user id into req.body
-router.get('/nfts', async (req, res, next) => {
+router.get('/nfts/:id', async (req, res, next) => {
     try {
         const nfts = await NFT.find({
-            user: req.body
+            user: req.params.id
         })
         res.json(nfts)
     } catch (err) {
         next(err)
     }
 })
+
 
 // Delete user
 router.delete('/:id', async (req, res, next) =>  {
