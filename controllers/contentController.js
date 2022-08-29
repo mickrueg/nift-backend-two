@@ -126,7 +126,7 @@ router.delete('/article/:id', async (req, res, next) =>  {
 // Delete saved NFT by id
 router.delete('/nft/:id', async (req, res, next) =>  {
     try {
-        const deleteNFT = await Foods.findByIdAndDelete(req.params.id)
+        const deleteNFT = await NFT.findByIdAndDelete(req.params.id)
         res.json(deleteNFT)
     } catch (err) {
         next(err)
