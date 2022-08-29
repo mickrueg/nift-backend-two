@@ -124,7 +124,7 @@ router.delete('/article/:id', async (req, res, next) =>  {
 })
 
 // Delete saved NFT by id
-router.delete('/:id', async (req, res, next) =>  {
+router.delete('/nft/:id', async (req, res, next) =>  {
     try {
         const deleteNFT = await Foods.findByIdAndDelete(req.params.id)
         res.json(deleteNFT)
@@ -146,30 +146,6 @@ router.post('/signin', (req, res, next) => {
 		.then((token) => res.json({ token }))
 		.catch(next);
 });
-
-// router.get('/:id', async (req, res, next) => {
-//     try {
-//         const userData = await User.findById({
-//             username: req.params.id,
-//             password: req.body.password
-//         })
-//         // console.log(userData)
-//         // bcrypt.compare(req.body.password, userData[0].password, function(err, isValid){
-//         //     if(isValid){
-//         //         res.send(true)
-//         //         console.log(true)
-//         //     } else {
-//         //         res.send(false)
-//         //         console.log(false)
-//         //     }
-//         // })
-        
-//     } catch (err) {
-//         next(err)
-//     }
-// })
-
-
 
 // Export routes
 module.exports = router
